@@ -24,6 +24,5 @@ if player_x == key_x and player_y == key_y:
 player_found_key = False
 background_color = '#FAF9F6'
 steps = 0
-# obliczam odległość miedzy graczem a skarbem
 distance_before_move = sqrt((key_x - player_x) ** 2 + (key_y - player_y) ** 2)
 game_ended = False
