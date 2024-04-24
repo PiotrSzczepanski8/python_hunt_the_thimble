@@ -12,7 +12,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
+        elif event.type == pygame.KEYDOWN and game_ended == False:
             steps += 1
             if event.key == pygame.K_w:
                 player_y -= 1
@@ -41,7 +41,8 @@ while running:
             print('after', distance_after_move)
 
             if distance_after_move == 0:
-                text = 'Klucz jest Twój, możesz iść otworzyć skarb'
+                text = 'Zwycięstwo'
+                game_ended = True
             elif distance_before_move > distance_after_move:
                 text = 'Ciepło'
             elif distance_before_move < distance_after_move:
