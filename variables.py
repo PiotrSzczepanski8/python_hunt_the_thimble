@@ -1,7 +1,7 @@
 from random import randint
 from math import sqrt
 import pygame
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 game_name = "Hunt the thimble"
@@ -14,12 +14,17 @@ key_x = randint(1, GAME_WIDTH)
 key_y = randint(1, GAME_HEIGHT)
 player_x = randint(1, GAME_WIDTH)
 player_y= randint(1, GAME_HEIGHT)
-
+min_steps = 0
 if player_x == key_x and player_y == key_y:
     key_x = randint(1, GAME_WIDTH)
     key_y = randint(1, GAME_HEIGHT)
     player_x = randint(1, GAME_WIDTH)
     player_y= randint(1, GAME_HEIGHT)
+
+player_x_test = player_x
+player_y_test = player_y
+key_x_test = key_x
+key_y_test = key_y
 
 player_found_key = False
 background_color = '#FAF9F6'
