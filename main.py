@@ -7,6 +7,7 @@ pygame.init()
 pygame.display.set_caption(game_name)
 pygame.display.set_icon(icon)
 
+# algorytm zachłanny
 while player_x_test != key_x_test or player_y_test != key_y_test:
     
     if player_x_test < key_x_test:
@@ -18,7 +19,7 @@ while player_x_test != key_x_test or player_y_test != key_y_test:
             player_y_test += 1
         elif player_y_test > key_y_test:
             player_y_test -= 1
-    min_steps+=1
+    min_steps += 1
 
 while running:
     for event in pygame.event.get():

@@ -15,16 +15,30 @@ key_y = randint(1, GAME_HEIGHT)
 player_x = randint(1, GAME_WIDTH)
 player_y= randint(1, GAME_HEIGHT)
 min_steps = 0
-if player_x == key_x and player_y == key_y:
+
+while player_x == key_x and player_y == key_y:
     key_x = randint(1, GAME_WIDTH)
     key_y = randint(1, GAME_HEIGHT)
-    player_x = randint(1, GAME_WIDTH)
-    player_y= randint(1, GAME_HEIGHT)
+
+def generate_unique_coordinates(game_width, game_height, player_x, player_y, key_x, key_y):
+    extra = []
+    while len(extra) < 3:
+        new_tuple = (randint(1, game_width), randint(1, game_height))
+
+        if (new_tuple not in extra and 
+            new_tuple != (player_x, player_y) and 
+            new_tuple != (key_x, key_y)):
+            extra.append(new_tuple)
+    
+    return extra
 
 player_x_test = player_x
 player_y_test = player_y
 key_x_test = key_x
 key_y_test = key_y
+
+extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y)
+# print(extra, '|', player_x, player_y, '|', key_x, key_y)
 
 player_found_key = False
 background_color = '#FAF9F6'
