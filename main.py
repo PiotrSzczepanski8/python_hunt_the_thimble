@@ -4,6 +4,12 @@ import pygame
 
 pygame.init()
 
+font = pygame.font.SysFont("Arial", 30)
+img9 = font.render('wybierz opcję:', True, '#212121')
+font = pygame.font.SysFont("Arial", 60)
+img10 = font.render('A', True, '#222222')
+img11 = font.render('P', True, '#222222')
+
 pygame.display.set_caption(game_name)
 pygame.display.set_icon(icon)
 
@@ -25,7 +31,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN and game_ended == False and event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d]:
+        elif event.type == pygame.KEYDOWN and game_ended == False and event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d] and on_extra == False:
             if event.key == pygame.K_w:
                 player_y -= 1
                 if player_y < 1:
@@ -67,6 +73,10 @@ while running:
             elif distance_before_move < distance_after_move:
                 text = 'Zimno'
 
+            if (player_x, player_y) in extra:
+                extra.remove((player_x, player_y))
+                on_extra = True
+
             font = pygame.font.SysFont("Arial", 50)
             if 'text' in globals():
                 img = font.render(text.upper(), True, '#212121')
@@ -88,6 +98,15 @@ while running:
                 img7 = font.render(f'{distance_after_move}', True, '#666666')
         
             distance_before_move = distance_after_move
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if a_button.collidepoint(event.pos) and on_extra == True:
+                print('A')
+                decision = True
+                on_extra = False
+            if p_button.collidepoint(event.pos) and on_extra == True:
+                print('P')
+                decision = True
+                on_extra = False
 
     screen.fill(background_color)
     pygame.draw.rect(screen, '#212121', pygame.Rect(margin_left, margin_top, GAME_WIDTH*50, GAME_HEIGHT*50))
@@ -99,7 +118,7 @@ while running:
         pygame.draw.line(screen, background_color, ((margin_left), margin_top + i*50), (margin_left+GAME_WIDTH*50, margin_top + i*50), 3)
     
     pygame.draw.rect(screen, player_color, pygame.Rect(margin_left + player_x*50+2-50, margin_top+player_y*50+2-50, 47, 47))
-    
+
     if 'img' in globals():
         screen.blit(img, (480, 10))
 
@@ -119,6 +138,20 @@ while running:
     
     if 'img8' in globals():
         screen.blit(img8, (30, 270))
+
+    # on_extra = True # window test
+    if on_extra == True:
+        s = pygame.Surface((1280, 720))
+        s.set_alpha(127.5)
+        s.fill((0, 0, 0))
+        screen.blit(s, (0,0))
+        pygame.draw.rect(screen, '#ffffff', pygame.Rect(390, 200, 500, 300)) # window
+        pygame.draw.rect(screen, '#888888', a_button) # a - container
+        pygame.draw.rect(screen, '#888888', p_button) # p - container
+        screen.blit(img9, (545, 235)) # message
+        screen.blit(img10, (516, 335)) # a
+        screen.blit(img11, (722, 335)) # p
+
 
     pygame.display.flip()
 

@@ -29,7 +29,7 @@ def generate_unique_coordinates(game_width, game_height, player_x, player_y, key
             new_tuple != (player_x, player_y) and 
             new_tuple != (key_x, key_y)):
             extra.append(new_tuple)
-    
+
     return extra
 
 player_x_test = player_x
@@ -38,7 +38,7 @@ key_x_test = key_x
 key_y_test = key_y
 
 extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y)
-# print(extra, '|', player_x, player_y, '|', key_x, key_y)
+print(extra)
 
 player_found_key = False
 background_color = '#FAF9F6'
@@ -46,3 +46,6 @@ steps = 0
 distance_before_move = sqrt((key_x - player_x) ** 2 + (key_y - player_y) ** 2)
 game_ended = False
 icon = pygame.image.load('media/key_icon.svg')
+on_extra = False
+a_button = pygame.Rect(476, 310, 120, 120)
+p_button = pygame.Rect(682, 310, 120, 120)
