@@ -101,11 +101,9 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if a_button.collidepoint(event.pos) and on_extra == True:
                 print('A')
-                decision = True
                 on_extra = False
             if p_button.collidepoint(event.pos) and on_extra == True:
                 print('P')
-                decision = True
                 on_extra = False
 
     screen.fill(background_color)
