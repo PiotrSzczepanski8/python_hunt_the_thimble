@@ -28,6 +28,7 @@ while player_x_test != key_x_test or player_y_test != key_y_test:
     min_steps += 1
 
 while running:
+    pygame.mouse.set_cursor(cursor)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -103,7 +104,10 @@ while running:
                 print('A')
                 on_extra = False
             if p_button.collidepoint(event.pos) and on_extra == True:
-                print('P')
+                text2 = 'plansza obróciła się' # <---
+                key_x, key_y = key_y, key_x
+                player_x, player_y = player_y, player_x
+                extra = swap_coordinates(extra)
                 on_extra = False
 
     screen.fill(background_color)
@@ -144,11 +148,16 @@ while running:
         s.fill((0, 0, 0))
         screen.blit(s, (0,0))
         pygame.draw.rect(screen, '#ffffff', pygame.Rect(390, 200, 500, 300)) # window
-        pygame.draw.rect(screen, '#888888', a_button) # a - container
-        pygame.draw.rect(screen, '#888888', p_button) # p - container
+        pygame.draw.rect(screen, button_color, a_button) # a - container
+        pygame.draw.rect(screen, button_color, p_button) # p - container
         screen.blit(img9, (545, 235)) # message
         screen.blit(img10, (516, 335)) # a
         screen.blit(img11, (722, 335)) # p
+        x, y = pygame.mouse.get_pos()
+        if (x > a_button.x and x < (a_button.x + a_button.width) and y > a_button.y and y < (a_button.y + a_button.height)) or (x > p_button.x and x < (p_button.x + p_button.width) and y > p_button.y and y < (p_button.y + p_button.height)):
+            cursor = pygame.SYSTEM_CURSOR_HAND
+        else:
+            cursor = pygame.SYSTEM_CURSOR_ARROW
 
 
     pygame.display.flip()

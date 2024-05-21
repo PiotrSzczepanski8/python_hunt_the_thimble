@@ -38,7 +38,10 @@ key_x_test = key_x
 key_y_test = key_y
 
 extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y)
-print(extra)
+#print(extra)
+
+def swap_coordinates(coord_list):
+    return [(y, x) for x, y in coord_list]
 
 player_found_key = False
 background_color = '#FAF9F6'
@@ -49,3 +52,5 @@ icon = pygame.image.load('media/key_icon.svg')
 on_extra = False
 a_button = pygame.Rect(476, 310, 120, 120)
 p_button = pygame.Rect(682, 310, 120, 120)
+cursor = pygame.SYSTEM_CURSOR_ARROW
+button_color = '#888888'
