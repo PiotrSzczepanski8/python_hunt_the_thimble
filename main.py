@@ -158,6 +158,8 @@ while running:
             cursor = pygame.SYSTEM_CURSOR_HAND
         else:
             cursor = pygame.SYSTEM_CURSOR_ARROW
+    else:
+        cursor = pygame.SYSTEM_CURSOR_ARROW
 
 
     pygame.display.flip()
