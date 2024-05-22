@@ -23,7 +23,7 @@ def image_effect(image_path, output_path, effect):
     elif effect == 'yellow':
         new_image = Image.merge("RGB", (r, g, Image.new('L', b.size)))
     else:
-        new_image = src_image
+        new_image = Image.merge("RGB", (r, g, b))
         
 
     new_image.save(output_path)
@@ -31,6 +31,6 @@ def image_effect(image_path, output_path, effect):
 input_path = os.path.join('media', 'image.png')
 output_path = os.path.join('media', 'image_effect.png')
 
-effect = 'yellow'  # możliwe wartości: red, green, blue, cyan, magenta, yellow
+effect = 'original'  # możliwe wartości: red, green, blue, cyan, magenta, yellow
 
-# image_effect(input_path, output_path, effect)
+image_effect(input_path, output_path, effect)
