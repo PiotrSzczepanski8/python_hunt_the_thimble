@@ -11,6 +11,11 @@ You have to guide the violet cube to a key through the 10x10 board. <br> The key
 ```
 pip install pygame
 ```
+- install pillow
+```
+pip install pillow
+```
+
 ### run the game and enjoy!
 ```
 python main.py

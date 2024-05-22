@@ -1,10 +1,12 @@
 from variables import *
+from image import *
 
 import pygame
 
 pygame.init()
 
 font = pygame.font.SysFont("Arial", 30)
+img12 = font.render('konwerter obrazow', True, '#222222')
 img9 = font.render('wybierz opcję:', True, '#212121')
 font = pygame.font.SysFont("Arial", 60)
 img10 = font.render('A', True, '#222222')
@@ -28,6 +30,7 @@ while player_x_test != key_x_test or player_y_test != key_y_test:
     min_steps += 1
 
 while running:
+    x, y = pygame.mouse.get_pos()
     pygame.mouse.set_cursor(cursor)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -109,6 +112,13 @@ while running:
                 player_x, player_y = player_y, player_x
                 extra = swap_coordinates(extra)
                 on_extra = False
+            if img_con_button.collidepoint(event.pos):
+                display_image = True
+            for rect, color in zip(color_buttons, image_colors):
+                if rect.collidepoint(event.pos):
+                    effect = color
+                    image_effect_on = True
+
 
     screen.fill(background_color)
     pygame.draw.rect(screen, '#212121', pygame.Rect(margin_left, margin_top, GAME_WIDTH*50, GAME_HEIGHT*50))
@@ -118,8 +128,21 @@ while running:
     
     for i in range(GAME_WIDTH):
         pygame.draw.line(screen, background_color, ((margin_left), margin_top + i*50), (margin_left+GAME_WIDTH*50, margin_top + i*50), 3)
+    image_x, image_y = margin_left, margin_top
+    if display_image == True:
+        if image_effect_on == True:
+            image = pygame.image.load('media/image_effect.png').convert()
+            image = pygame.transform.scale(image, (47, 47))
+        for i in range(GAME_HEIGHT*GAME_WIDTH):
+            screen.blit(image, (image_x, image_y))
+            if i!= 0 and (str(i))[-1] == '9':
+                image_y += 50
+                image_x -= 500
+            image_x += 50
     
     pygame.draw.rect(screen, player_color, pygame.Rect(margin_left + player_x*50+2-50, margin_top+player_y*50+2-50, 47, 47))
+
+    pygame.draw.rect(screen, button_color, img_con_button)
 
     if 'img' in globals():
         screen.blit(img, (480, 10))
@@ -140,6 +163,22 @@ while running:
     
     if 'img8' in globals():
         screen.blit(img8, (30, 270))
+    
+    screen.blit(img12, (80, 37))
+
+    for color, rect in zip(image_colors, color_buttons):
+        font = pygame.font.SysFont("Arial", 20)
+        text_surface = font.render(color, True, '#212121')
+        if color == 'oryginał':
+            color = '#666666'
+        pygame.draw.rect(screen, color, rect)
+        screen.blit(text_surface, (1130, rect.y+5))
+
+
+    if x > img_con_button.x and x < (img_con_button.x + img_con_button.width) and y > img_con_button.y and y < (img_con_button.y + img_con_button.height) or (x > 1120 and x < 1250 and y > 65 and y < 342):
+        cursor = pygame.SYSTEM_CURSOR_HAND
+    else:
+        cursor = pygame.SYSTEM_CURSOR_ARROW
 
     # on_extra = True # window test
     if on_extra == True:
@@ -153,15 +192,13 @@ while running:
         screen.blit(img9, (545, 235)) # message
         screen.blit(img10, (516, 335)) # a
         screen.blit(img11, (722, 335)) # p
-        x, y = pygame.mouse.get_pos()
         if (x > a_button.x and x < (a_button.x + a_button.width) and y > a_button.y and y < (a_button.y + a_button.height)) or (x > p_button.x and x < (p_button.x + p_button.width) and y > p_button.y and y < (p_button.y + p_button.height)):
             cursor = pygame.SYSTEM_CURSOR_HAND
         else:
             cursor = pygame.SYSTEM_CURSOR_ARROW
-    else:
-        cursor = pygame.SYSTEM_CURSOR_ARROW
 
-
+    if image_effect_on == True:
+        image_effect(input_path, output_path, effect)        
     pygame.display.flip()
 
 pygame.quit()

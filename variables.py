@@ -22,7 +22,7 @@ while player_x == key_x and player_y == key_y:
 
 def generate_unique_coordinates(game_width, game_height, player_x, player_y, key_x, key_y):
     extra = []
-    while len(extra) < 3:
+    while len(extra) < 10:
         new_tuple = (randint(1, game_width), randint(1, game_height))
 
         if (new_tuple not in extra and 
@@ -54,3 +54,18 @@ a_button = pygame.Rect(476, 310, 120, 120)
 p_button = pygame.Rect(682, 310, 120, 120)
 cursor = pygame.SYSTEM_CURSOR_ARROW
 button_color = '#888888'
+img_con_button = pygame.Rect(30, 30, 350, 50)
+print(extra)
+image = pygame.image.load('media/image.png').convert()
+image = pygame.transform.scale(image, (47, 47))
+display_image = False
+image_effect_on = False
+image_colors = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'oryginał']
+red_button = pygame.Rect(1120, 65, 110, 37)
+green_button = pygame.Rect(1120, 105, 110, 37)
+blue_button = pygame.Rect(1120, 145, 110, 37)
+cyan_button = pygame.Rect(1120, 185, 110, 37)
+magenta_button = pygame.Rect(1120, 225, 110, 37)
+yellow_button = pygame.Rect(1120, 265, 110, 37)
+original_button = pygame.Rect(1120, 305, 110, 37)
+color_buttons = [red_button, green_button, blue_button, cyan_button, magenta_button, yellow_button, original_button]
