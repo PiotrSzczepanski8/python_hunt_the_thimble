@@ -36,34 +36,32 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN and game_ended == False and event.key in [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d] and on_extra == False:
+            if text_change == True:
+                text_change = False
             if event.key == pygame.K_w:
                 player_y -= 1
                 if player_y < 1:
                     text2 = "Auć! uderzasz w ścianę!"
+                    text_change = True
                     player_y = 1
-                else:
-                    text2 = None
             if event.key == pygame.K_s:
                 player_y += 1
                 if player_y > GAME_HEIGHT:
                     text2 = "Auć! uderzasz w ścianę!"
+                    text_change = True
                     player_y = GAME_HEIGHT
-                else:
-                    text2 = None
             if event.key == pygame.K_a:
                 player_x -= 1
                 if player_x < 1:
                     text2 = "Auć! uderzasz w ścianę!"
+                    text_change = True
                     player_x = 1
-                else:
-                    text2 = None
             if event.key == pygame.K_d:
                 player_x += 1
                 if player_x > GAME_WIDTH:
                     text2 = "Auć! uderzasz w ścianę!"
+                    text_change = True
                     player_x = GAME_WIDTH
-                else:
-                    text2 = None
 
             distance_after_move = sqrt((key_x - player_x) ** 2 + (key_y - player_y) ** 2)
             steps += 1
@@ -84,8 +82,6 @@ while running:
             font = pygame.font.SysFont("Arial", 50)
             if 'text' in globals():
                 img = font.render(text.upper(), True, '#212121')
-            if 'text2' in globals():
-                    img2 = font.render(text2, True, '#212121')
             if 'steps_text' in globals():
                 img3 = font.render(steps_text, True, '#212121')
 
@@ -105,19 +101,20 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             
             if a_button.collidepoint(event.pos) and on_extra == True:
+                text2 = 'wszystkie pola zostały zamienione'
+                text_change = True
                 number = len(extra)
-                print(len(extra))
                 player_x = randint(1, GAME_WIDTH)
                 player_y= randint(1, GAME_HEIGHT)
                 while player_x == key_x and player_y == key_y:
                     key_x = randint(1, GAME_WIDTH)
                     key_y = randint(1, GAME_HEIGHT)
                 extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y, number)
-                print(len(extra))
                 on_extra = False
             
             if p_button.collidepoint(event.pos) and on_extra == True:
                 text2 = 'plansza obróciła się'
+                text_change = True
                 key_x, key_y = key_y, key_x
                 player_x, player_y = player_y, player_x
                 extra = swap_coordinates(extra)
@@ -162,9 +159,14 @@ while running:
     if 'img' in globals():
         screen.blit(img, (480, 10))
 
+    font = pygame.font.SysFont('Arial', 50)
+    if 'text2' in globals():
+        img2 = font.render(text2, True, '#212121')
+
     if 'img2' in globals():
         if img2 != None:
-           screen.blit(img2, (360, 630))
+           if text_change == True:
+                screen.blit(img2, (360, 630))
 
     if 'img3' in globals():
         screen.blit(img3, (30, 210))
@@ -181,7 +183,7 @@ while running:
     
     screen.blit(img12, (80, 37))
 
-    if display_image == True:        
+    if display_image == True:
         for color, rect in zip(image_colors, color_buttons):
             font = pygame.font.SysFont("Arial", 20)
             text_surface = font.render(color, True, '#212121')
@@ -196,7 +198,6 @@ while running:
     else:
         cursor = pygame.SYSTEM_CURSOR_ARROW
 
-    # on_extra = True # window test
     if on_extra == True:
         s = pygame.Surface((1280, 720))
         s.set_alpha(127.5)

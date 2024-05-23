@@ -67,3 +67,4 @@ magenta_button = pygame.Rect(1120, 225, 110, 37)
 yellow_button = pygame.Rect(1120, 265, 110, 37)
 original_button = pygame.Rect(1120, 305, 110, 37)
 color_buttons = [red_button, green_button, blue_button, cyan_button, magenta_button, yellow_button, original_button]
+text_change = False
