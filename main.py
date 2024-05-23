@@ -103,17 +103,32 @@ while running:
         
             distance_before_move = distance_after_move
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            
             if a_button.collidepoint(event.pos) and on_extra == True:
-                print('A')
+                number = len(extra)
+                print(len(extra))
+                player_x = randint(1, GAME_WIDTH)
+                player_y= randint(1, GAME_HEIGHT)
+                while player_x == key_x and player_y == key_y:
+                    key_x = randint(1, GAME_WIDTH)
+                    key_y = randint(1, GAME_HEIGHT)
+                extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y, number)
+                print(len(extra))
                 on_extra = False
+            
             if p_button.collidepoint(event.pos) and on_extra == True:
-                text2 = 'plansza obróciła się' # <---
+                text2 = 'plansza obróciła się'
                 key_x, key_y = key_y, key_x
                 player_x, player_y = player_y, player_x
                 extra = swap_coordinates(extra)
                 on_extra = False
+            
             if img_con_button.collidepoint(event.pos):
-                display_image = True
+                if display_image == True:
+                    display_image = False
+                else:
+                    display_image = True
+            
             for rect, color in zip(color_buttons, image_colors):
                 if rect.collidepoint(event.pos):
                     effect = color
@@ -166,13 +181,14 @@ while running:
     
     screen.blit(img12, (80, 37))
 
-    for color, rect in zip(image_colors, color_buttons):
-        font = pygame.font.SysFont("Arial", 20)
-        text_surface = font.render(color, True, '#212121')
-        if color == 'oryginał':
-            color = '#666666'
-        pygame.draw.rect(screen, color, rect)
-        screen.blit(text_surface, (1130, rect.y+5))
+    if display_image == True:        
+        for color, rect in zip(image_colors, color_buttons):
+            font = pygame.font.SysFont("Arial", 20)
+            text_surface = font.render(color, True, '#212121')
+            if color == 'oryginał':
+                color = '#666666'
+            pygame.draw.rect(screen, color, rect)
+            screen.blit(text_surface, (1130, rect.y+5))
 
 
     if x > img_con_button.x and x < (img_con_button.x + img_con_button.width) and y > img_con_button.y and y < (img_con_button.y + img_con_button.height) or (x > 1120 and x < 1250 and y > 65 and y < 342):

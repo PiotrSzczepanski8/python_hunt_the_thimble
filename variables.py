@@ -20,9 +20,9 @@ while player_x == key_x and player_y == key_y:
     key_x = randint(1, GAME_WIDTH)
     key_y = randint(1, GAME_HEIGHT)
 
-def generate_unique_coordinates(game_width, game_height, player_x, player_y, key_x, key_y):
+def generate_unique_coordinates(game_width, game_height, player_x, player_y, key_x, key_y, number):
     extra = []
-    while len(extra) < 10:
+    while len(extra) < number:
         new_tuple = (randint(1, game_width), randint(1, game_height))
 
         if (new_tuple not in extra and 
@@ -37,8 +37,7 @@ player_y_test = player_y
 key_x_test = key_x
 key_y_test = key_y
 
-extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y)
-#print(extra)
+extra = generate_unique_coordinates(GAME_WIDTH, GAME_HEIGHT, player_x, player_y, key_x, key_y, 10)
 
 def swap_coordinates(coord_list):
     return [(y, x) for x, y in coord_list]
@@ -55,7 +54,6 @@ p_button = pygame.Rect(682, 310, 120, 120)
 cursor = pygame.SYSTEM_CURSOR_ARROW
 button_color = '#888888'
 img_con_button = pygame.Rect(30, 30, 350, 50)
-print(extra)
 image = pygame.image.load('media/image.png').convert()
 image = pygame.transform.scale(image, (47, 47))
 display_image = False
